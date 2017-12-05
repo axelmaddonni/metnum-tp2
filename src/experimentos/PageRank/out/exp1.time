@@ -1,0 +1,55 @@
+S10
+
+real	0m0.116s
+user	0m0.013s
+sys	0m0.066s
+S50
+
+real	0m0.084s
+user	0m0.007s
+sys	0m0.078s
+S100
+
+real	0m0.094s
+user	0m0.022s
+sys	0m0.065s
+S250
+
+real	0m0.121s
+user	0m0.046s
+sys	0m0.077s
+S1000
+
+real	0m0.284s
+user	0m0.272s
+sys	0m0.015s
+S2500
+
+real	0m0.532s
+user	0m0.487s
+sys	0m0.048s
+S5000
+
+real	0m1.030s
+user	0m0.964s
+sys	0m0.075s
+S10000
+
+real	0m2.069s
+user	0m1.951s
+sys	0m0.112s
+S25000
+
+real	0m5.561s
+user	0m5.284s
+sys	0m0.231s
+S50000
+
+real	0m12.337s
+user	0m11.858s
+sys	0m0.465s
+S100000
+
+real	0m28.331s
+user	0m27.392s
+sys	0m0.870s

@@ -1,0 +1,34 @@
+\begin{tabulary}{0.6\textwidth}{| c | c | c | c | c |}
+\hline
+& \textbf{Equipo} & \textbf{Goles a Favor} & \textbf{Goles en Contra} & \textbf{Puntos} \\ \hline
+1 & Boca Juniors & 45 & 20 & 58\\ \hline
+2 & San Lorenzo & 38 & 16 & 54\\ \hline
+3 & Rosario Central & 39 & 21 & 52\\ \hline
+4 & Racing Club & 33 & 21 & 49\\ \hline
+5 & River Plate & 45 & 26 & 48\\ \hline
+6 & Independiente & 36 & 21 & 45\\ \hline
+7 & Banfield & 33 & 27 & 43\\ \hline
+8 & Belgrano & 28 & 20 & 43\\ \hline
+9 & Estudiantes (LP) & 26 & 25 & 42\\ \hline
+10 & Tigre & 28 & 21 & 42\\ \hline
+11 & Quilmes & 32 & 30 & 39\\ \hline
+12 & Lanús & 29 & 23 & 38\\ \hline
+13 & Unión & 38 & 35 & 38\\ \hline
+14 & Gimnasia y Esgrima (LP) & 34 & 33 & 37\\ \hline
+15 & Newell's Old Boys & 22 & 24 & 33\\ \hline
+16 & San Martín (SJ) & 30 & 31 & 32\\ \hline
+17 & Aldosivi & 30 & 38 & 30\\ \hline
+18 & Sarmiento & 22 & 26 & 30\\ \hline
+19 & Argentinos Juniors & 28 & 34 & 29\\ \hline
+20 & Olimpo & 17 & 21 & 29\\ \hline
+21 & Temperley & 18 & 21 & 29\\ \hline
+22 & Defensa y Justicia & 25 & 29 & 27\\ \hline
+23 & Huracán & 24 & 32 & 26\\ \hline
+24 & Vélez Sarsfield & 25 & 33 & 26\\ \hline
+25 & Godoy Cruz & 22 & 34 & 25\\ \hline
+26 & Colón & 18 & 28 & 24\\ \hline
+27 & Arsenal & 22 & 39 & 23\\ \hline
+28 & Atlético de Rafaela & 27 & 44 & 22\\ \hline
+29 & Nueva Chicago & 18 & 35 & 17\\ \hline
+30 & Crucero del Norte & 21 & 45 & 14\\ \hline
+\end{tabulary}

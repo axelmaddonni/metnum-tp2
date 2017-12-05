@@ -1,0 +1,70 @@
+\subsection{Page Rank para Páginas Web}
+
+\subsubsection{Algoritmo PageRank vs IN-DEG}
+
+\par El algoritmo de PageRank presentado cumple con lo especificado en la introducción teórica. Utilizando el método de la potencia explicado anteriormente, dada la matriz P'' calculada a partir del input, y un parámetro de teleportación $c$ pasado por parámetro, computa el primer autovector principal de probabilidad que muestra la "proporción" en el tiempo que un navegante aleatorio pasaría en cada página. A partir de ese vector, confeccionamos el Ranking que es devuelto en un archivo de salida.
+
+\par Usando el Algoritmo propuesto por Kamvar, demostrado en la sección anterior, aprovechamos la esparsidad de la matriz P. Para ello utilizamos una estructura llamada \textit{Compressed Column Storage} para optimizar el tiempo de ejecución de nuestro algoritmo. La estructura que aprovecha esta característica se encuentra explicada en la siguiente sección.
+
+\par Por otra parte, el algoritmo IN-DEG que también utilizaremos en nuestros experimentos para comparar computa un Ranking solamente tomando en cuenta los enlaces entrantes a una página, ordenándolas por importancia de manera decreciente.
+
+	
+\subsubsection{Representación de Matrices Esparsas}
+
+\par En el enunciado de este trabajo se mencionaron tres estructuras distintas para aprovechar la esparsidad de la matriz $P$ (detalla por Kamvar et al\cite{Kamvar2003}).
+\'Estas son: Dictionary of Keys (\textit{DoK}), Compressed Column Storage (\textit{CCS}) y Compressed Row Storage (\textit{CRS}).
+\par \textit{DoK} consiste en guardar triplas de $<fila, columna, valor>$ para cada elemento no-nulo de la matriz. 
+Permite construir la representaci\'on de la matriz incrementalmente y el acceso aleatorio r\'apido a los elementos de \'esta
+(ya sea en tiempo $O(1)$ o $O(log(n))$ - con $n$ igual a la cantidad de elementos no nulos-, dependiendo de la implementaci\'on elegida para el diccionario).
+Sin embargo, no es particularmente buena para realizar operaciones de matrices, y el overhead incurrido por esta estructura es mayor que el de las otras.
+\par \textit{CCS} y \textit{CRS} mantienen tres arreglos: uno para los valores no-nulos (ordenados por columna y luego por fila en el caso de \textit{CCS} y al rev\'es en el caso de \textit{CRS}),
+uno que indica a qu\'e columna (en el caso de \textit{CCS}, o fila para \textit{CRS}) corresponden esos valores y uno que determina c\'uantos elementos de cada fila 
+(para \textit{CCS}, o columna para \textit{CRS}) son no-nulos.
+\textit{CCS} es eficiente (itera s\'olo sobre los elementos no-nulos, y el overhead es $O(1)$) para multiplicar por derecha (es decir, con la matriz \textit{CCS} siendo la derecha), 
+y \textit{CRS} para multiplicar por izquierda.
+\par La matriz $P$ se puede construir a partir de la entrada en una \textit{CRS}, o se puede construir $P^T$ como \textit{CCS} (la representaci\'on de una matriz $A$ cualquiera en \textit{CRS}
+es id\'entica a la representaci\'on \textit{CCS} de $A^T$). 
+Nosotros necesitamos $P^T$ como \textit{CRS}, por lo que deberemos pasar la representaci\'on \textit{CCS} de $P^T$ a \textit{CRS}.
+Afortunadamente, esto se puede realizar en tiempo lineal en la cantidad de elementos no-nulos (equivalente al tiempo necesario para transponer la matriz, por lo que no se incurre en overhead, desde
+un punto de vista asint\'otico).
+	
+\subsection{Problema del Page Rank para Competencias Deportivas}
+
+\subsubsection{Algoritmo GeM}
+
+\par Para implementar el algoritmo GeM no tuvimos grandes problemas. Decidimos hacer una implementaci\'on paralela al Page Rank para evitar complicaciones, ya que sabemos que contamos con las siguientes caracter\'isticas:
+\begin{itemize}
+	\item Una cantidad de datos acotados: la matriz est\'a definida por la cantidad de equipos, pero sabemos que es acotada y que no nos va a generar grandes problemas.
+	\item En la liga que vamos a analizar los equipos se enfrentar todos contra todos, por lo que no vamos a toparnos con una matriz esparsa. Por eso nos vamos a ahorrar las optimizaciones de estructuras (mas a\'un contando con el item anterior).
+	\item Los resultados son n\'umeros enteros y de rango acotado (acotados por el juego en s\'i, ya que ser\'ia un caso borde que un equipo convierta mas de 6 goles en un partido).
+\end{itemize}
+\par Analizando los puntos nombrados decidimos tomar un vector de vectores de double (matriz de double ``M''). Vamos recorriendo el archivo de entrada donde se encuentran los resultados de los distintos partidos y aplicamos la siguiente l\'ogica:
+
+\begin{algorithmic}[1]
+\If{goles(j) == goles(i)}
+	\State //salteamos el partido
+\ElsIf{goles(j) \textgreater goles(i)}
+	\State $M_{ij} = M_{ij} + ( goles(j) - goles(i) )$
+\Else
+	\State $M_{ji} = M_{ji} + ( goles(i) - goles(j) )$
+\EndIf
+\end{algorithmic}
+
+Con este paso obtenemos la ``matriz $A^t$''. Luego la recorremos y dividimos a cada posici\'on $ij$ por la suma de todas las posiciones de su misma fila $i$. as\'i obtenemos la ``matriz $H^t$. Luego tomamos a $P$=$H^t$ y realizamos los pasos del m\'etodo Page Rank. Al finalizar imprimimos los resultados en el archivo de salida.
+
+\subsubsection{M\'etodo Est\'andar}
+
+	\par El m\'etodo est\'andar para la obtenci\'on del ranking de una liga de f\'utbol consta sumar los puntajes de los equipos en cada partido (3pts por ganar y 1pt por empatar). Para llevar esto a cabo tomamos un vector de enteros y recorremos el archivo de entrada aplicando el siguiente algoritmo para cada partido:
+
+\begin{algorithmic}[1]
+\If{goles(j) == goles(i)}
+	\State $M_{ij} = M_{ij} + 1$
+	\State $M_{ij} = M_{ji} + 1$
+\ElsIf{goles(j) \textgreater goles(i)}
+	\State $M_{ij} = M_{ij} + 3$
+\Else
+	\State $M_{ji} = M_{ji} + 3$
+\EndIf
+\end{algorithmic}
+
+\par Al finalizar el proceso obtenemos el vector con los puntajes de cada equipo. Lo siguiente que hacemos es ordenarlo e imprimir los resultados en el archivo de salida.

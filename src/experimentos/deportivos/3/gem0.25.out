@@ -1,0 +1,34 @@
+\begin{tabulary}{0.4\textwidth}{ | c | c | c |}
+\hline
+& \textbf{Equipo} & \textbf{Numero}\\ \hline
+1 & Boca Juniors & 0.0482203\\ \hline
+2 & San Lorenzo & 0.0427167\\ \hline
+3 & River Plate & 0.0423674\\ \hline
+4 & Racing Club & 0.0390569\\ \hline
+5 & Rosario Central & 0.0381873\\ \hline
+6 & Aldosivi & 0.0380251\\ \hline
+7 & Quilmes & 0.0361347\\ \hline
+8 & Independiente & 0.0353818\\ \hline
+9 & Belgrano & 0.0352652\\ \hline
+10 & San Martín (SJ) & 0.0350069\\ \hline
+11 & Newell's Old Boys & 0.0343742\\ \hline
+12 & Gimnasia y Esgrima (LP) & 0.0335275\\ \hline
+13 & Banfield & 0.0329196\\ \hline
+14 & Tigre & 0.0324036\\ \hline
+15 & Lanús & 0.032141\\ \hline
+16 & Estudiantes (LP) & 0.0318617\\ \hline
+17 & Vélez Sarsfield & 0.0317125\\ \hline
+18 & Unión & 0.0315979\\ \hline
+19 & Sarmiento & 0.0312971\\ \hline
+20 & Huracán & 0.0307105\\ \hline
+21 & Arsenal & 0.0305612\\ \hline
+22 & Defensa y Justicia & 0.0297583\\ \hline
+23 & Olimpo & 0.0296628\\ \hline
+24 & Godoy Cruz & 0.029231\\ \hline
+25 & Argentinos Juniors & 0.0291579\\ \hline
+26 & Temperley & 0.0288641\\ \hline
+27 & Crucero del Norte & 0.0283756\\ \hline
+28 & Nueva Chicago & 0.0275108\\ \hline
+29 & Atlético de Rafaela & 0.0270644\\ \hline
+30 & Colón & 0.0269057\\ \hline
+\end{tabulary}

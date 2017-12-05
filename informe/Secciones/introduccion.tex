@@ -1,0 +1,192 @@
+\par En este trabajo estudiaremos algoritmos que buscan ordenar páginas web de acuerdo a su importancia relativa dentro de la red. Nos concentraremos en el algoritmo de PageRank, que constituye uno de los criterios utilizados para ponderar la importancia de los resultados de una búsqueda, y distinguió al motor de búsqueda de Google en su lanzamiento, debido a la calidad de sus resultados. Además, compararemos los resultados obtenidos por otros algoritmos más simples como IN-DEG, resaltando la diferencia en tiempos de ejecución, calidad de resultados, entre otras.
+En particular, veremos las vulnerabilidades de In-Deg frente a ciertos ataques posibles, y su falla a la hora de medir la importancia relativa de las p\'aginas comparado con PageRank.
+
+\par Por otra parte, estudiaremos la aplicación de estos algoritmos usados en un contexto muy diferente, como lo son las competencias deportivas. Éstas requieren inevitablemente la confección de Rankings o Tablas de Posiciones, basados en determinadas reglas según cada deporte. Para ello, veremos una manera de modelar estas competencias de modo que al aplicar PageRank logremos resultados similares a los que arrojaría el verdadero ranking de posiciones, y en qué casos vemos diferencias, en particular para la competencia de primera división de fútbol argentino de la AFA.
+
+\subsection{Page Rank y Páginas Web}
+
+\par El algoritmo PageRank se basa en la construcci\'on del siguiente modelo. Supongamos que tenemos una red con $n$ p\'aginas 
+web $Web = \{1,\dots,n\}$ donde
+el objetivo es asignar a cada una de ellas un puntaje que determine la importancia relativa de la misma respecto de las
+dem\'as. Para modelar las relaciones entre ellas, definimos la \emph{matriz de conectividad} $W \in \{0,1\}^{n \times n}$ 
+de forma tal que $w_{ij} = 1$ si la p\'agina $j$ tiene un link a la p\'agina $i$, y $w_{ij} = 0$ en caso contrario. 
+Adem\'as, ignoramos los \emph{autolinks}, es decir, links de una p\'agina a s\'i misma, definiendo $w_{ii} = 0$. Tomando 
+esta matriz, definimos el grado de la p\'agina $i$, $deg(i)$, como la cantidad de links salientes hacia otras p\'aginas 
+de la red. Adem\'as, notamos con $x_i$ al puntaje asignado a la p\'agina $i\in
+Web$, que es lo que buscamos calcular.
+
+\par Consideraremos que la importancia de la p\'agina $v$ obtenida mediante el link de la p\'agina $u$ es proporcional a la 
+importancia de la p\'agina $u$ e inversamente proporcional al grado de $u$. Si la p\'agina $u$ contiene $deg(u)$ links,
+uno de los cuales apunta a la p\'agina $v$, entonces el aporte de ese link a la p\'agina $v$ ser\'a $x_u/deg(u)$. Luego,
+sea $L_k \subseteq Web$ el conjunto de p\'aginas que tienen un link a la p\'agina $k$. Para cada p\'agina pedimos que
+\begin{eqnarray}
+x_k = \sum_{i \in L_k} \frac{x_i}{deg(i)},~~~~k = 1,\dots,n. \label{eq:basicmodel}
+\end{eqnarray}
+
+\par Una formulación equivalente es pensar en términos de un \textit{navegante aleatorio} en la web. Si consideramos al navegante visitando la página $i$ en un instante de tiempo, en el próximo paso, el navegante elige entre los links disponibles con probabilidad $1 / deg(i)$.
+El ranking de la página $i$ está definido por la probabilidad de que en un instante particular $k > K$, el navegante está en la página $i$. Para un $K$ suficientemente grande, y con algunas modificaciones a la navegación aleatoria, ésta probabilidad es única. Considerando la cadena de markov inducida por la navegación aleatoria en la Web, la matriz que describe la transición de $j$ a $i$ está dada por $P$ con $p_{ij} = 1/deg(j)$ si $w_{ij} = 1$, y $p_{ij} = 0$ en caso contrario. Luego,
+el modelo planteado en (\ref{eq:basicmodel}) es equivalente a encontrar un $x\in \mathbb{R}^n$ tal que $Px = x$, es
+decir, encontrar (suponiendo que existe) un autovector asociado al autovalor 1 de una matriz cuadrada, tal que $x_i \ge
+0$ y $\sum_{i = 1}^n x_i = 1$.
+ 
+\par Para que $P$ sea una matriz de probabilidades de transición válida, todos las páginas deben tener al menos un link de salida, es decir, $P$ no debe tener columnas de todos ceros. En ese caso, consideramos que si la página no tiene links de salida, el navegante aleatorio pasa a cualquiera de las páginas de la red con probabilidad $1/n$. Para representar esta situaci\'on, definimos $v \in \mathbb{R}^{n}$, con $v_i = 1/n$ y $d \in \{0,1\}^{n}$ donde 
+$d_i = 1$ si $deg(i) = 0$, y $d_i = 0$ en caso contrario. La nueva matriz de transici\'on es 
+\begin{eqnarray*}
+D & = & v d^t \\
+P' & = & P + D.
+\end{eqnarray*}
+ 
+\par Sin embargo, para nuestro algoritmo, es deseable que los rankings resultantes sean únicos. Para eso, debe existir un único autovector $x\in \mathbb{R}^n$ tal que $P'x = x$, con $x$ vector de probabilidad que usaremos para determinar la importancia de cada página. Esto sucede si la matriz de transición está \textit{fuertemente conectada}, es decir, la matriz además de ser estocástica por columnas es positiva. La demostración se puede encontrar en el paper de Bryan y Leise  \cite{Bryan2006}, sección 3.2. Una interpretación más intuitiva de esto se puede ver en el caso con una red dividida en dos o más subredes, donde un navegante en una de las subredes no puede llegar a través de los links a las páginas de la otra red. En este caso, no sería posible comparar la importancia entre las páginas de las distintas subredes, por lo que es probable que existan más de un vector solución.
+
+\par La forma estándar para asegurar esta propiedad es agregar un set de transiciones con poca probabilidad a todos los nodos. En términos del navegante aleatorio, que dado que se encuentra en una página cualquiera, este pueda visitar otra página del conjunto con poca probabilidad, independientemente de si esta se encuentra o no entre los links salientes de la actual (fenómeno conocido como \textit{teletransportación}). Para ello consideramos que esta decisión se toma con probabilidad $c \geq 0$, y podemos incluirlo al modelo de la siguiente forma:
+\begin{eqnarray*}
+E & = & v \bar{1}^t \\
+P'' & = & cP' + (1-c)E,
+\end{eqnarray*}
+\noindent donde $\bar{1} \in \mathbb{R}^n$ es un vector tal que todas sus componentes valen 1.
+
+\par A partir de aquí nos referiremos a la matriz $P''$ simplemente como la matriz $A$. Probabil\'isticamente, la
+componente $x_j$ del vector soluci\'on (normalizado) del sistema $Ax = x$ representa la proporci\'on del tiempo que,
+en el largo plazo, el navegante aleatorio pasa en la p\'agina $j \in Web$. Denotaremos con $\pi$ al vector soluci\'on 
+de la ecuaci\'on $A x = x$, que es com\'unmente denominado \emph{estado estacionario}, y es exactamente el vector que se busca computar.
+
+\par El algoritmo de PageRank computa el autovector principal empezando con la distribución uniforme y calculando sucesivas iteraciones $x^k = A\ x^{k-1}$ hasta converger. (Numéricamente, hasta que la diferencia de los x que vamos obteniendo sea menor a un determinado valor epsilon pasado por parámetro.). Este método es conocido como Método de la Potencia.
+
+\subsubsection{Método de la Potencia}
+
+\par El método de la potencia es el método más viejo para computar el autovector principal de una matriz. La convergencia del método se puede ver de la siguiente manera intuitivamente:
+\par Por simplicidad, asumimos que el vector inicial $x^0$ pertenece al subespacio formado por los autovectores de A, y por ende puede escribirse como una combinación lineal de autovectores de A: 
+\begin{equation*}
+x^0 = u_1 + \alpha_2 u_2 + ... + \alpha_m u_m
+\end{equation*}
+\par Como sabemos que el primer autovalor de una Matriz de Markov es $\lambda_1 = 1$, tenemos que:
+\begin{equation*}
+x^1 = Ax^0 = u_1 + \alpha_2 \lambda_2 u_2 + ... + \alpha_m \lambda_m u_m
+\end{equation*}
+\par y 
+\begin{equation*}
+x^n = A^n x^0 = u_1 + \alpha_2 \lambda_2^n u_2 + ... + \alpha_m \lambda_m^n u_m
+\end{equation*}
+\par Como $\lambda_n \leq ... \leq \lambda_2 < 1$, $A^n x^0$ se acerca a $u_1$ mientras $n$ crece. De esta manera, el método de la potencia converge al autovector principal de matriz de Markov A.
+\par Notar que si $\lambda_2$ es un valor cercano a 1, el método converge más lentamente, porque $n$ debe ser suficientemente grande para que $\lambda_2^n$ converja a 0, y viceversa.
+
+\par Una iteración del método de la potencia consiste en una multiplicación entre matriz y vector $A x^k$. Generalmente, esto costa $O(n^2)$ operaciones. Sin embargo, en el paper de Kamvar presentan un algoritmo para aprovechar la matriz esparsa P para calcular las multiplicaciones en costo $O(n)$. 
+
+\par El algoritmo propuesto por Kamvar \cite{Kamvar2003} para calcular $y = Ax$ es el siguiente: \newline 
+
+\noindent\fbox{
+\begin{minipage}{\textwidth}
+\begin{algorithmic}[0]
+\State $y = cPx$
+\State $w = ||x||_1 - ||y||_1$
+\State $y = y + w.v$
+\end{algorithmic}
+\end{minipage}
+}
+
+donde $v$ es el vector uniforme de dimensi\'on n: $[1/n]_{nx1}$.
+
+\subsubsection{Page Rank con personalizaci\'on}
+\par Este m\'etodo consiste en una variante del algoritmo detallado en la secci\'on anterior.
+Page Rank le asigna la misma probabilidad a cada link que sale de una misma p\'agina, y la misma probabilidad de teletransportarse a todas las p\'aginas.
+La idea de esta variante es aprovechar el historial de cada usuario, ponderando los links a p\'aginas que ya visit\'o y asign\'andole una mayor probabilidad
+de teletransportaci\'on a tales sitios.
+El peso que se le da a la personalizaci\'on est\'a dado por un par\'ametro, que denominaremos \textit{``p''}, an\'alogo de personalizaci\'on al par\'ametro \textit{``c''} de teletransportaci\'on.
+
+\subsubsection{Demostración de la correctitud del Algoritmo de Kamvar}
+
+\par Primero desarrollamos la fórmula de la $y$ buscada, que resuelve el sistema, utilizando las fórmulas de las matrices introducidas previamente:
+
+\begin{align*}
+y & = Ax \\ 
+& = (P'')x = (cP' + (1-c)E)x \\
+& = cP'x + (1-c)Ex \\
+& = c(P+D)x + (1-c)Ex \\
+& = cPx + cDx + (1-c)Ex 
+\end{align*}
+
+\par Queremos ver que $cDx + (1-c)Ex = wv$. El producto de matrices queda:
+
+\begin{align*}
+cDx + (1-c)Ex & = c 
+\begin{bmatrix}
+v_1d_1 & v_1d_2 & ... & v_1d_n \\
+v_2d_1 & v_2d_2 & ... & v_2d_n \\
+... & ... & ... & ... \\
+v_nd_1 & v_nd_2 & ... & v_nd_n \\
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+... \\
+x_n \\
+\end{bmatrix}
++
+(1-c)
+\begin{bmatrix}
+v_1 & v_1 & ... & v_1 \\
+v_2 & v_2 & ... & v_2 \\
+... & ... & ... & ... \\
+v_n & v_n & ... & v_n \\
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+... \\
+x_n \\
+\end{bmatrix} 
+\\ 
+& = c \sum_{j = 1}^n (v_i d_j x_j) + (1-c) \sum_{j=1}^n (v_i x_j) \ \ \forall{i} (para\  cada\ fila\ i\ del\ vector\ resultante) \\
+& = c \ v_i \sum_{j = 1}^n (d_j x_j) + (1-c) v_i \sum_{j=1}^n (x_j) \\
+& = v_i \ ( c \sum_{j = 1}^n (d_j x_j) + (1-c) \sum_{j=1}^n (x_j) ) \\
+& = v_i \ ( \sum_{j=1}^n (x_j) + c\ (\sum_{j = 1}^n (d_j x_j) - \sum_{j=1}^n (x_j))\ ) \\
+& = v_i \ ( \sum_{j=1}^n (x_j) + c \sum_{j = 1}^n (d_j x_j - x_j)\ )\\
+& = v_i \ ( \sum_{j=1}^n (x_j) + c \sum_{j = 1}^n (x_j (d_j - 1))\ ) \\
+& = v_i \ ( \sum_{j=1}^n (x_j) - c \sum_{j = 1}^n (x_j (1 - d_j))\ ) \\
+& = v_i \ ( \sum_{j=1}^n (x_j) - c \sum_{\substack{j = 1 \\ d_j = 0}}^n (x_j)\ )
+\end{align*}
+
+\par Desarrollamos $wv$, también de dimensión $n$, y vemos que llegamos a lo mismo: 
+
+\begin{align*}
+wv &= v_i ( ||x||_1 - ||y||_1) \ \ \forall{i} \ \ (para\  cada\ fila\ i\ del\ vector\ resultante) \\
+&= v_i ( ||x||_1 - ||cPx||_1) \\
+&= v_i ( ||x||_1 - c \||Px||_1) \ \ (c\ es\ positivo) \\ 
+&= v_i ( \sum_{j=1}^n x_j - c\ (\sum_{i=1}^n \sum_{\substack{j = 1 \\ w_{ij} = 1}}^n \frac{x_j}{deg(j)})\ )\ \ (no\ escribo\ los\ m\acute{o}dulos\ pues\ son\ valores\ positivos) 
+\end{align*}
+
+\par Desarrollando las sumatorias, se puede observar que la norma 1 del vector resultante de multiplicar la matriz P por el vector x se puede reescribir sacando factor común $x_i$, multiplicados por la sumatoria de todos los $\frac{1}{deg(i)}$ tales que $w_{ij} = 1$. Esta sumatoria suma 1 en caso de que la página $i$ tenga links salientes ($d_i = 0)$, pues son las probabilidades sumadas de saltar desde una página $i$ a sus $deg(i)$ páginas apuntadas. En caso de que la página $i$ no tenga links salientes, es decir $d_i = 1$, como la columna i-ésima de la matriz P es de todos ceros en la multiplicación se anula el $x_i$.
+
+\begin{align*}
+&= v_i ( \sum_{j=1}^n x_j - c\ (\sum_{i=1}^n x_i \sum_{\substack{j = 1 \\ w_{ij} = 1}}^n \frac{1}{deg(i)})\ )\\
+& = v_i \ ( \sum_{j=1}^n (x_j) - c\ \sum_{\substack{i = 1 \\ d_i = 0}}^n (x_i)\ )  \\
+& = cDx + (1-c)Ex
+\end{align*}
+
+\subsection{Competencias Deportivas}
+
+\subsubsection{M\'etodo GeM}
+\par El m\'etodo GeM estudia eventos deportivos estableciendo buscando establecer un ranking de los competidores en base a los resultados obtenidos. Se basa en tomar la liga a estudiar como un grafo y a los competidores como nodos de ese grafo. Los links salientes de un equipo representan una derrota y tienen un peso determinado por la diferencia de goles del encuentro. En cierto modo se lo puede asimilar al Page Rank tomando a los equipos como p\'aginas y los resultados de los encuentros como links. EL m\'etodo consiste en una serie de pasos que vamos a explicar a continuaci\'on y concluye aplicando el m\'etodo Page Rank antes visto.
+
+\par Se comienza armando una matriz $A^t \in \mathbb{R}^{n \times n}$ (siendo n = \#competidores) tal que:
+
+\begin{equation*}
+A_{ji}^t = \left\{
+	\begin{array}{cl}
+	w_{ji} & \text{si el competidor } i \text{ fue derrotado por el } j.\\
+	0 & \text{ en caso de empate o victoria. }\\
+	\end{array} \right.
+\end{equation*}
+donde $w_{ji}$ es la diferencia del marcador entre i y j. En caso de mas de una derrota las diferencias se acumulan.
+
+\par Luego definimos la matriz $H_{ji}^t \in \mathbb{R}^{n \times n}$ como
+
+\begin{equation*}
+H_{ji}^t = \left\{
+	\begin{array}{cl}
+	A_{ji}^t/\sum_{k = 1}^n A_{ki}^t & \text{si }A_{ji} \neq 0.\\
+	0 & \text{en caso contrario.}\\
+	\end{array} \right.
+\end{equation*}
+
+\par Ahora tomamos la $H^t$=P y aplicamos el m\'etodo Page Rank sobre P. Los pasos a seguir son los mismos que se explicaron previamente.

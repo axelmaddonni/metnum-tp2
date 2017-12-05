@@ -1,0 +1,40 @@
+S10
+
+real	0m0.243s
+user	0m0.191s
+sys	0m0.043s
+S50
+
+real	0m0.513s
+user	0m0.228s
+sys	0m0.049s
+S100
+
+real	0m0.370s
+user	0m0.286s
+sys	0m0.069s
+S250
+
+real	0m0.586s
+user	0m0.517s
+sys	0m0.055s
+S1000
+
+real	0m0.839s
+user	0m0.752s
+sys	0m0.074s
+S2500
+
+real	0m1.510s
+user	0m1.351s
+sys	0m0.144s
+S5000
+
+real	0m2.846s
+user	0m2.641s
+sys	0m0.164s
+S10000
+
+real	0m5.758s
+user	0m5.376s
+sys	0m0.308s

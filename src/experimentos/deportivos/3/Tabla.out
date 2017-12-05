@@ -1,0 +1,36 @@
+\begin{tabulary}{0.6\textwidth}{| c | c | c | c | c | c | c | c | c | c | c | c | c | c |}
+\hline
+& \textbf{Estándar} & & & & \textbf{GeM c=0.85} & & \textbf{GeM c=0.65} & & \textbf{GeM c=0.45} & & \textbf{GeM c=0.25} & & \textbf{GeM c=0.10} & & \\ \hline
+& \textbf{Equipo} & \textbf{Goles a Favor} & \textbf{Goles en Contra} & \textbf{Puntos} & \textbf{Equipo} & \textbf{Numero} & \textbf{Equipo} & \textbf{Numero} & \textbf{Equipo} & \textbf{Numero} & \textbf{Equipo} & \textbf{Numero} & \textbf{Equipo} & \textbf{Numero}\\ \hline
+1 & Boca Juniors & 45 & 20 & 581 & Boca Juniors & 0.0860189 & Boca Juniors & 0.0733813 & Boca Juniors & 0.0606875 & Boca Juniors & 0.0482203 & Boca Juniors & 0.0391723 & Aldosivi & 0.0333333\\ \hline
+2 & San Lorenzo & 38 & 16 & 54 & Aldosivi & 0.0653536 & River Plate & 0.0567981 & San Lorenzo & 0.0499442 & San Lorenzo & 0.0427167 & San Lorenzo & 0.0370968 & Argentinos Juniors & 0.0333333\\ \hline
+3 & Rosario Central & 39 & 21 & 52 & River Plate & 0.0634998 & San Lorenzo & 0.0565158 & River Plate & 0.0496795 & River Plate & 0.0423674 & River Plate & 0.0369049 & Arsenal & 0.0333333\\ \hline
+4 & Racing Club & 33 & 21 & 49 & San Lorenzo & 0.0620352 & Aldosivi & 0.0539079 & Aldosivi & 0.0447069 & Racing Club & 0.0390569 & Racing Club & 0.035756 & Atlético de Rafaela & 0.0333333\\ \hline
+5 & River Plate & 45 & 26 & 48 & Rosario Central & 0.0484731 & Racing Club & 0.0457833 & Racing Club & 0.0428156 & Rosario Central & 0.0381873 & Rosario Central & 0.0353165 & Banfield & 0.0333333\\ \hline
+6 & Independiente & 36 & 21 & 45 & Racing Club & 0.0478783 & Rosario Central & 0.0452122 & Rosario Central & 0.0418059 & Aldosivi & 0.0380251 & Aldosivi & 0.0347273 & Belgrano & 0.0333333\\ \hline
+7 & Banfield & 33 & 27 & 43 & San Martín (SJ) & 0.0439558 & Quilmes & 0.0404394 & Quilmes & 0.0383565 & Quilmes & 0.0361347 & Quilmes & 0.0344383 & Boca Juniors & 0.0333333\\ \hline
+8 & Belgrano & 28 & 20 & 43 & Quilmes & 0.0423821 & San Martín (SJ) & 0.0402627 & San Martín (SJ) & 0.0372554 & Independiente & 0.0353818 & Independiente & 0.0342128 & Colón & 0.0333333\\ \hline
+9 & Estudiantes (LP) & 26 & 25 & 42 & Newell's Old Boys & 0.0382332 & Independiente & 0.0369399 & Independiente & 0.0365013 & Belgrano & 0.0352652 & Belgrano & 0.0341754 & Crucero del Norte & 0.0333333\\ \hline
+10 & Tigre & 28 & 21 & 42 & Vélez Sarsfield & 0.0376689 & Newell's Old Boys & 0.0367592 & Belgrano & 0.0362978 & San Martín (SJ) & 0.0350069 & San Martín (SJ) & 0.0338478 & Defensa y Justicia & 0.0333333\\ \hline
+11 & Quilmes & 32 & 30 & 39 & Independiente & 0.0365646 & Belgrano & 0.0367142 & Newell's Old Boys & 0.0354615 & Newell's Old Boys & 0.0343742 & Newell's Old Boys & 0.0337058 & Estudiantes (LP) & 0.0333333\\ \hline
+12 & Lanús & 29 & 23 & 38 & Belgrano & 0.0363978 & Vélez Sarsfield & 0.0339863 & Gimnasia y Esgrima (LP) & 0.0334781 & Gimnasia y Esgrima (LP) & 0.0335275 & Gimnasia y Esgrima (LP) & 0.0334661 & Gimnasia y Esgrima (LP) & 0.0333333\\ \hline
+13 & Unión & 38 & 35 & 38 & Gimnasia y Esgrima (LP) & 0.0335849 & Gimnasia y Esgrima (LP) & 0.0334449 & Banfield & 0.0322737 & Banfield & 0.0329196 & Banfield & 0.0332359 & Godoy Cruz & 0.0333333\\ \hline
+14 & Gimnasia y Esgrima (LP) & 34 & 33 & 37 & Banfield & 0.0307372 & Banfield & 0.0315017 & Vélez Sarsfield & 0.0320383 & Tigre & 0.0324036 & Tigre & 0.033108 & Huracán & 0.0333333\\ \hline
+15 & Newell's Old Boys & 22 & 24 & 33 & Estudiantes (LP) & 0.0295322 & Estudiantes (LP) & 0.0300275 & Tigre & 0.0309417 & Lanús & 0.032141 & Lanús & 0.0330404 & Independiente & 0.0333333\\ \hline
+16 & San Martín (SJ) & 30 & 31 & 32 & Unión & 0.0288744 & Unión & 0.0295537 & Estudiantes (LP) & 0.0308326 & Estudiantes (LP) & 0.0318617 & Estudiantes (LP) & 0.0327287 & Lanús & 0.0333333\\ \hline
+17 & Aldosivi & 30 & 38 & 30 & Tigre & 0.0273356 & Tigre & 0.0291471 & Unión & 0.030459 & Vélez Sarsfield & 0.0317125 & Unión & 0.0326009 & Newell's Old Boys & 0.0333333\\ \hline
+18 & Sarmiento & 22 & 26 & 30 & Sarmiento & 0.026108 & Sarmiento & 0.0278552 &  Lanús & 0.0300347 & Unión & 0.0315979 & Sarmiento & 0.032534 & Nueva Chicago & 0.0333333\\ \hline
+19 & Argentinos Juniors & 28 & 34 & 29 & Huracán & 0.0246666 & Lanús & 0.0268794 & Sarmiento & 0.029597 & Sarmiento & 0.0312971 & Vélez Sarsfield & 0.0324353 & Olimpo & 0.0333333\\ \hline
+20 & Olimpo & 17 & 21 & 29 & Defensa y Justicia & 0.023737 & Huracán & 0.0268684 & Huracán & 0.0288031 & Huracán & 0.0307105 & Arsenal & 0.0322986 & Quilmes & 0.0333333\\ \hline
+21 & Temperley & 18 & 21 & 29 & Lanús & 0.022729 & Defensa y Justicia & 0.0251338 & Arsenal & 0.0278305 & Arsenal & 0.0305612 & Huracán & 0.0322372 & Racing Club & 0.0333333\\ \hline
+22 & Defensa y Justicia & 25 & 29 & 27 & Olimpo & 0.0224689 & Arsenal & 0.0245886 & Defensa y Justicia & 0.0272022 & Defensa y Justicia & 0.0297583 & Olimpo & 0.0318759 & River Plate & 0.0333333\\ \hline
+23 & Huracán & 24 & 32 & 26 & Arsenal & 0.0208702 & Olimpo & 0.0243619 & Olimpo & 0.0268306 & Olimpo & 0.0296628 & Defensa y Justicia & 0.0318741 & Rosario Central & 0.0333333\\ \hline
+24 & Vélez Sarsfield & 25 & 33 & 26 & Godoy Cruz & 0.017516 & Godoy Cruz & 0.0217211 & Godoy Cruz & 0.0256217 & Godoy Cruz & 0.029231 & Argentinos Juniors & 0.0317779 & San Lorenzo & 0.0333333\\ \hline
+25 & Godoy Cruz & 22 & 34 & 25 & Temperley & 0.016045 & Temperley & 0.0206051 & Argentinos Juniors & 0.0251294 & Argentinos Juniors & 0.0291579 & Godoy Cruz & 0.0317477 & San Martín (SJ) & 0.0333333\\ \hline
+26 & Colón & 18 & 28 & 24 & Crucero del Norte & 0.0160393 & Argentinos Juniors & 0.020519 & Temperley & 0.024895 & Temperley & 0.0288641 & Temperley & 0.0316124 & Sarmiento & 0.0333333\\ \hline
+27 & Arsenal & 22 & 39 & 23 & Argentinos Juniors & 0.0153984& Crucero del Norte & 0.0200982 & Crucero del Norte & 0.0242505 & Crucero del Norte & 0.0283756 & Crucero del Norte & 0.0313869 & Temperley & 0.0333333\\ \hline
+28 & Atlético de Rafaela & 27 & 44 & 22 & Nueva Chicago & 0.0142318 & Nueva Chicago & 0.0184388 & Nueva Chicago & 0.0228892 & Nueva Chicago & 0.0275108 & Nueva Chicago & 0.0310147 & Tigre & 0.0333333\\ \hline
+29 & Nueva Chicago & 18 & 35 & 17 & Atlético de Rafaela & 0.0113878 & Atlético de Rafaela & 0.0166064 & Atlético de Rafaela & 0.0218659 &  Atlético de Rafaela & 0.0270644 & Atlético de Rafaela & 0.0308652 & Unión & 0.0333333\\ \hline
+30 & Crucero del Norte & 21 & 45 & 14 & Colón & 0.0102765 & Colón & 0.0159487 & Colón & 0.0215147 & Colón & 0.0269057 & Colón & 0.0308063 & Vélez Sarsfield & 0.0333333\\ \hline
+\end{tabulary}
+

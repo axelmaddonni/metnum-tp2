@@ -1,0 +1,35 @@
+\begin{thebibliography}{1}
+
+\bibitem{datahub}
+Datahub.
+\newblock \url{http://datahub.io}.
+
+\bibitem{SNAP}
+Stanford large network dataset collection.
+\newblock \url{http://snap.stanford.edu/data/#web}.
+
+\bibitem{Brin1998}
+Sergey Brin and Lawrence Page.
+\newblock {The anatomy of a large-scale hypertextual Web search engine}.
+\newblock {\em Computer Networks and ISDN Systems}, 30(1-7):107--117, April
+  1998.
+
+\bibitem{Bryan2006}
+Kurt Bryan and Tanya Leise.
+\newblock The linear algebra behind google.
+\newblock {\em SIAM Review}, 48(3):569--581, 2006.
+
+\bibitem{Govan2008}
+Angela~Y. Govan, Carl~D. Meyer, and Rusell Albright.
+\newblock Generalizing google's pagerank to rank national football league
+  teams.
+\newblock In {\em Proceedings of SAS Global Forum 2008}, 2008.
+
+\bibitem{Kamvar2003}
+Sepandar~D. Kamvar, Taher~H. Haveliwala, Christopher~D. Manning, and Gene~H.
+  Golub.
+\newblock Extrapolation methods for accelerating pagerank computations.
+\newblock In {\em Proceedings of the 12th international conference on World
+  Wide Web}, WWW '03, pages 261--270, New York, NY, USA, 2003. ACM.
+
+\end{thebibliography}
